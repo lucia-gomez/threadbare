@@ -29,13 +29,14 @@ function setup() {
 
 	createCanvas(WIDTH, HEIGHT);
 	createControls();
-
-	strokeWeight(4);
+	strokeWeight(strokeWeightSlider.value());
+	noFill();
 	resetDrawing();
 }
 
 function draw() {
 	background(color(colorPickerBg.value()));
+	strokeWeight(strokeWeightSlider.value());
 
 	const distortion = distortionSlider.value() / 100;
 	updateRows();
@@ -49,6 +50,12 @@ function draw() {
 			segment.draw();
 		});
 	});
+
+	if (geometryCheckbox.checked()) {
+		rows.forEach((row) => {
+			row.slice(1).forEach((segment) => segment.drawGeometry());
+		});
+	}
 
 	prevMouseY = mouseY;
 }

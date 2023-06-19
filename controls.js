@@ -1,13 +1,17 @@
 let distortionSlider;
 let numRowsSlider;
 let segmentWidthSlider;
+let strokeWeightSlider;
 
 let colorPickerStart;
 let colorPickerEnd;
 let colorPickerBg;
 
+let geometryCheckbox;
+
 let resetButton;
 let menuOpen = false;
+let textColor = "white";
 
 function toggleMenu() {
 	const menu = document.getElementById("menu");
@@ -24,6 +28,7 @@ function toggleMenu() {
 function createControls() {
 	createSliders();
 	createColorPickers();
+	createCheckboxes();
 }
 
 function appendSlider(label, min, max, value) {
@@ -45,8 +50,9 @@ function appendSlider(label, min, max, value) {
 }
 
 function createSliders() {
-	distortionSlider = appendSlider("Amplitude", 5, 100, 50);
 	numRowsSlider = appendSlider("Rows", 1, 100, 50);
+	strokeWeightSlider = appendSlider("Thickness", 1, 6, 4);
+	distortionSlider = appendSlider("Amplitude", 5, 100, 50);
 	segmentWidthSlider = appendSlider("Detail", 2, 50, 20);
 }
 
@@ -64,7 +70,9 @@ function createColorPickers() {
 	controlMenu.appendChild(colorPickerBg.elt);
 	colorPickerBg.elt.oninput = (e) => {
 		menu.style.backgroundColor = e.target.value + "cc";
-		menu.style.color = getTextColor(e.target.value);
+		const newTextColor = getTextColor(e.target.value);
+		menu.style.color = newTextColor;
+		textColor = newTextColor;
 	};
 }
 
@@ -77,6 +85,22 @@ function getTextColor(bgColor) {
 	var b = (rgb >> 0) & 0xff; // extract blue
 
 	var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
-	console.log(luma);
 	return luma > 170 ? "black" : "white";
+}
+
+function createCheckboxes() {
+	const controlMenu = document.getElementById("controls");
+	const checkboxRow = document.createElement("div");
+	checkboxRow.className = "control-row";
+
+	const labelTag = document.createElement("label");
+	labelTag.setAttribute("for", "geometry");
+	labelTag.innerText = "Show Geometry";
+	checkboxRow.appendChild(labelTag);
+
+	geometryCheckbox = createCheckbox(false);
+	geometryCheckbox.elt.name = "geometry";
+	checkboxRow.appendChild(geometryCheckbox.elt);
+
+	controlMenu.appendChild(checkboxRow);
 }

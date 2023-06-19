@@ -30,8 +30,15 @@ class Segment {
 			this.row / numRowsSlider.value()
 		);
 		stroke(strokeColor);
+		line(this.prev.x, this.prev.y, this.x, this.y);
+	}
 
-		line(this.prev.x, this.prev.y, this.x, this.originalY + this.offsetY);
+	drawGeometry() {
+		strokeWeight(1);
+		stroke(textColor);
+		line(this.prev.x, this.prev.y, this.x, this.y);
+		circle(this.x, this.y, 5);
+		strokeWeight(strokeWeightSlider.value());
 	}
 
 	move(y) {
@@ -49,13 +56,5 @@ class Segment {
 			dist(mouseX, mouseY, this.centerX, this.centerY) <=
 			(WIDTH * 0.5) / segmentWidthSlider.value()
 		);
-	}
-
-	highlight() {
-		this.stroke = true;
-	}
-
-	unhighlight() {
-		this.stroke = false;
 	}
 }
