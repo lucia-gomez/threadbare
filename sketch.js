@@ -4,10 +4,10 @@ let prevMouseY = 0;
 
 let HEIGHT, WIDTH;
 
-function genRow(r) {
+function genRow(r, numSegments = numSegmentsSlider.value()) {
 	const row = [];
 	let prev = null;
-	for (let c = 0; c <= segmentWidthSlider.value(); c++) {
+	for (let c = 0; c <= numSegments; c++) {
 		const newSegment = new Segment(r, c, prev);
 		row.push(newSegment);
 		prev = newSegment;
@@ -40,6 +40,7 @@ function draw() {
 
 	const distortion = distortionSlider.value() / 100;
 	updateRows();
+	updateSegments();
 
 	rows.forEach((row) => {
 		row.slice(1).forEach((segment) => {
@@ -68,12 +69,32 @@ function updateRows() {
 
 	if (newNumRows < rows.length) {
 		rows = rows.slice(0, newNumRows);
-	} else if (newNumRows > rows.length) {
+	} else {
 		for (let r = rows.length; r < newNumRows; r++) {
 			rows[r] = genRow(r);
 		}
 	}
 	rows.forEach((row) => row.forEach((segment) => segment.updateRow()));
+}
+
+function updateSegments() {
+	const newNumSegments = numSegmentsSlider.value();
+	if (newNumSegments === rows[0].length - 1) {
+		return;
+	}
+
+	for (let r = 0; r < rows.length; r++) {
+		let row = rows[r];
+		if (newNumSegments < row.length - 1) {
+			rows[r] = row.slice(0, newNumSegments + 1);
+		} else {
+			for (let c = row.length; c <= newNumSegments; c++) {
+				let newSegment = new Segment(r, c, row[row.length - 1]);
+				row.push(newSegment);
+			}
+		}
+		rows[r].forEach((segment) => segment.updateCol());
+	}
 }
 
 function mousePressed() {

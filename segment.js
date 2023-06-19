@@ -5,10 +5,8 @@ class Segment {
 		this.prev = prev; // null if initial point in row
 		this.originalY = this.calculateRow();
 
-		this.x = (WIDTH / segmentWidthSlider.value()) * col;
+		this.x = this.calculateCol();
 		this.y = this.originalY;
-		this.centerX = (this.x + (this.prev?.x ?? this.x)) / 2;
-		this.centerY = (this.y + (this.prev?.y ?? this.y)) / 2;
 		this.offsetY = 0;
 	}
 
@@ -16,9 +14,17 @@ class Segment {
 		return (HEIGHT / numRowsSlider.value()) * (0.5 + this.row);
 	}
 
+	calculateCol() {
+		return (WIDTH / numSegmentsSlider.value()) * this.col;
+	}
+
 	updateRow() {
 		this.originalY = this.calculateRow();
 		this.move(0);
+	}
+
+	updateCol() {
+		this.x = this.calculateCol();
 	}
 
 	draw() {
@@ -35,26 +41,27 @@ class Segment {
 
 	drawGeometry() {
 		strokeWeight(1);
-		stroke(textColor);
+		stroke(textColor + "99");
 		line(this.prev.x, this.prev.y, this.x, this.y);
-		circle(this.x, this.y, 5);
+		if (this.col < numSegmentsSlider.value()) {
+			circle(this.x, this.y, 5);
+		}
 		strokeWeight(strokeWeightSlider.value());
 	}
 
 	move(y) {
 		const newY = this.originalY + this.offsetY + y;
 		if (abs(this.originalY - newY) > 100) return;
-		if (this.col === segmentWidthSlider.value()) return;
+		if (y !== 0 && this.col === numSegmentsSlider.value()) return;
 
 		this.offsetY += y;
 		this.y = newY;
-		this.centerY = (this.y + (this.prev?.y ?? this.y)) / 2;
 	}
 
 	isTouching(mouseX, mouseY) {
 		return (
-			dist(mouseX, mouseY, this.centerX, this.centerY) <=
-			(WIDTH * 0.5) / segmentWidthSlider.value()
+			dist(mouseX, mouseY, this.x, this.y) <=
+			(WIDTH * 0.5) / numSegmentsSlider.value()
 		);
 	}
 }

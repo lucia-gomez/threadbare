@@ -1,6 +1,6 @@
 let distortionSlider;
 let numRowsSlider;
-let segmentWidthSlider;
+let numSegmentsSlider;
 let strokeWeightSlider;
 
 let colorPickerStart;
@@ -11,7 +11,7 @@ let geometryCheckbox;
 
 let resetButton;
 let menuOpen = false;
-let textColor = "white";
+let textColor = "#ffffff";
 
 function toggleMenu() {
 	const menu = document.getElementById("menu");
@@ -53,7 +53,7 @@ function createSliders() {
 	numRowsSlider = appendSlider("Rows", 1, 100, 50);
 	strokeWeightSlider = appendSlider("Thickness", 1, 6, 4);
 	distortionSlider = appendSlider("Amplitude", 5, 100, 50);
-	segmentWidthSlider = appendSlider("Detail", 2, 50, 20);
+	numSegmentsSlider = appendSlider("Detail", 2, 50, 20);
 }
 
 function createColorPickers() {
@@ -85,7 +85,7 @@ function getTextColor(bgColor) {
 	var b = (rgb >> 0) & 0xff; // extract blue
 
 	var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
-	return luma > 170 ? "black" : "white";
+	return luma > 170 ? "#000000" : "#ffffff";
 }
 
 function createCheckboxes() {
