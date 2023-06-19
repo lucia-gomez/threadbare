@@ -26,79 +26,75 @@
 			html {
 				overflow: none;
 			}
-			svg {
+
+			#menu {
 				position: absolute;
 				top: 0;
 				right: 0;
+				padding: 10px 0px;
+				border-radius: 0px 0px 0px 10px;
+				background-color: #042836cc;
+				color: white;
+				overflow: hidden;
+				width: 100px;
+				height: 32px;
+				transition: width 250ms ease-in-out, height 250ms ease-in-out;
+			}
+			#buttons {
+				position: absolute;
+				right: 10;
+			}
+			#controls {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+				margin-top: 50px;
+				padding: 0px 20px;
+			}
+			.control-row {
+				display: flex;
+				align-items: center;
 			}
 
-			#menu {
-				fill: #042836cc;
+			.control-row label {
+				padding-right: 4px;
+				/* color: white; */
+				font-family: system-ui;
+			}
+			#color-controls {
+				display: flex;
+				padding-bottom: 20px;
+			}
+			#color-controls input {
+				margin-right: 4px;
 			}
 
-			.icon {
+			i {
 				font-family: FontAwesome;
-				fill: white;
+				/* color: white; */
 				opacity: 0.4;
 				transition: opacity 200ms;
 				font-size: 32px;
 			}
-			.icon:hover {
+			i:hover {
 				opacity: 1;
 			}
 		</style>
 	</head>
 	<body>
-		<svg height="400px" width="300px" xmlns="http://www.w3.org/2000/svg">
-			<g id="menu" transform="scale(-1, 1) translate(-380, 0)">
-				<rect x="80" y="0" width="100" height="50" ry="5">
-					<animate
-						id="openHeight"
-						attributeName="height"
-						from="50"
-						to="400"
-						dur="300ms"
-						begin="indefinite"
-						fill="freeze"
-					/>
-					<animate
-						id="openWidth"
-						attributeName="width"
-						from="100"
-						to="300"
-						dur="300ms"
-						begin="indefinite"
-						fill="freeze"
-					/>
-					<animate
-						id="closeHeight"
-						attributeName="height"
-						from="400"
-						to="50"
-						dur="300ms"
-						begin="indefinite"
-						fill="freeze"
-					/>
-					<animate
-						id="closeWidth"
-						attributeName="width"
-						from="300"
-						to="100"
-						dur="300ms"
-						begin="indefinite"
-						fill="freeze"
-					/>
-				</rect>
-			</g>
-			<text x="216" y="36" class="icon" onclick="resetDrawing()">&#xf1f8;</text>
-			<text x="260" y="36" class="icon" onclick="toggleMenu()">&#xf013;</text>
-
-			<!-- <i
-				class="fas fa-trash"
-				style="margin-right: 8px"
-				onclick="resetDrawing()"
-			></i>
-			<i class="fas fa-cog" onclick="toggleMenu()"></i> -->
-		</svg>
+		<div id="menu">
+			<div id="buttons">
+				<i
+					class="fas fa-trash"
+					style="margin-right: 8px"
+					onclick="resetDrawing()"
+				></i>
+				<i class="fas fa-cog" onclick="toggleMenu()"></i>
+			</div>
+			<!-- Populated in controls.js -->
+			<div id="controls">
+				<div id="color-controls"></div>
+			</div>
+		</div>
 	</body>
 </html>

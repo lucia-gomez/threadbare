@@ -42,7 +42,7 @@ function draw() {
 
 	rows.forEach((row) => {
 		row.slice(1).forEach((segment) => {
-			if (isDrawing && segment.isTouching(mouseX, mouseY)) {
+			if (isDrawing && !menuOpen && segment.isTouching(mouseX, mouseY)) {
 				let yDiff = prevMouseY - mouseY;
 				segment.move(-1 * yDiff * distortion);
 			}
@@ -50,7 +50,6 @@ function draw() {
 		});
 	});
 
-	drawSliderLabels();
 	prevMouseY = mouseY;
 }
 
