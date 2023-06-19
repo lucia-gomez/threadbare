@@ -2,16 +2,27 @@ class Segment {
 	constructor(row, col, prev) {
 		this.row = row;
 		this.col = col;
-		this.prev = prev;
-		this.originalX = (WIDTH / segmentWidthSlider.value()) * col;
-		this.originalY = (HEIGHT / numRowsSlider.value()) * (0.5 + row);
-		this.update(this.originalX, this.originalY);
+		this.prev = prev; // null if initial point in row
+		this.originalY = this.calculateRow();
+
+		this.x = (WIDTH / segmentWidthSlider.value()) * col;
+		this.y = this.originalY;
+		this.centerX = (this.x + (this.prev?.x ?? this.x)) / 2;
+		this.centerY = (this.y + (this.prev?.y ?? this.y)) / 2;
+		this.offsetY = 0;
+	}
+
+	calculateRow() {
+		return (HEIGHT / numRowsSlider.value()) * (0.5 + this.row);
+	}
+
+	updateRow() {
+		this.originalY = this.calculateRow();
+		this.move(0);
 	}
 
 	draw() {
-		if (this.prev == null) {
-			return;
-		}
+		if (this.prev == null) return;
 
 		const strokeColor = lerpColor(
 			color(colorPickerStart.value()),
@@ -19,14 +30,17 @@ class Segment {
 			this.row / numRowsSlider.value()
 		);
 		stroke(strokeColor);
-		line(this.prev.x, this.prev.y, this.x, this.y);
+
+		line(this.prev.x, this.prev.y, this.x, this.originalY + this.offsetY);
 	}
 
-	update(x, y) {
-		if (dist(x, y, this.originalX, this.originalY) > 100) return;
-		this.x = x;
-		this.y = y;
-		this.centerX = (this.x + (this.prev?.x ?? this.x)) / 2;
+	move(y) {
+		const newY = this.originalY + this.offsetY + y;
+		if (abs(this.originalY - newY) > 100) return;
+		if (this.col === segmentWidthSlider.value()) return;
+
+		this.offsetY += y;
+		this.y = newY;
 		this.centerY = (this.y + (this.prev?.y ?? this.y)) / 2;
 	}
 
