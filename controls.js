@@ -19,10 +19,20 @@ function toggleMenu() {
 		menu.style.width = "250px";
 		menu.style.height = "300px";
 	} else {
-		menu.style.width = "100px";
-		menu.style.height = "32px";
+		menu.style.width = "180px";
+		menu.style.height = "40px";
 	}
 	menuOpen = !menuOpen;
+}
+
+function save() {
+	saveCanvas("png");
+}
+
+function toggleLock() {
+	const lockIcon = document.getElementById("lock-icon");
+	lockIcon.className = isLocked ? "fas fa-unlock" : "fas fa-lock";
+	isLocked = !isLocked;
 }
 
 function createControls() {
@@ -70,7 +80,7 @@ function createColorPickers() {
 	colorPickerBg = createColorPicker("#042836");
 	controlMenu.appendChild(colorPickerBg.elt);
 	colorPickerBg.elt.oninput = (e) => {
-		menu.style.backgroundColor = e.target.value + "cc";
+		menu.style.backgroundColor = e.target.value + "e8";
 		const newTextColor = getTextColor(e.target.value);
 		menu.style.color = newTextColor;
 		textColor = newTextColor;
@@ -90,7 +100,7 @@ function getTextColor(bgColor) {
 }
 
 function createCheckboxes() {
-	const controlMenu = document.getElementById("controls");
+	const controlMenu = document.getElementById("checkbox-controls");
 	const checkboxRow = document.createElement("div");
 	checkboxRow.className = "control-row";
 

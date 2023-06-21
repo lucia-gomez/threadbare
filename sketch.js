@@ -1,5 +1,6 @@
 let rows = [];
 let isDrawing = true;
+let isLocked = false;
 let prevMouseY = 0;
 
 let HEIGHT, WIDTH;
@@ -32,6 +33,15 @@ function setup() {
 	strokeWeight(strokeWeightSlider.value());
 	noFill();
 	resetDrawing();
+
+	// can draw under the menu nub, but not the expanded menu
+	const menuElement = select("#menu");
+	menuElement.mouseOver(() => {
+		isDrawing = !menuOpen;
+	});
+	menuElement.mouseOut(() => {
+		isDrawing = true;
+	});
 }
 
 function draw() {
@@ -44,7 +54,7 @@ function draw() {
 
 	rows.forEach((row) => {
 		row.slice(1).forEach((segment) => {
-			if (isDrawing && !menuOpen && segment.isTouching(mouseX, mouseY)) {
+			if (isDrawing && !isLocked && segment.isTouching(mouseX, mouseY)) {
 				let yDiff = prevMouseY - mouseY;
 				segment.move(-1 * yDiff * distortion);
 			}
@@ -103,4 +113,17 @@ function mousePressed() {
 
 function mouseReleased() {
 	isDrawing = true;
+}
+
+function keyTyped() {
+	if (key === "s" || key === "S") {
+		save();
+	} else if (key === "x" || key === "X") {
+		resetDrawing();
+	} else if (key === "h" || key === "H") {
+		toggleMenu();
+	} else if (key === "l" || key === "L") {
+		toggleLock();
+	}
+	return false;
 }

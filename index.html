@@ -22,6 +22,7 @@
 		<style>
 			body {
 				margin: 0px;
+				font-family: system-ui;
 			}
 			html {
 				overflow: none;
@@ -33,16 +34,19 @@
 				right: 0;
 				padding: 10px 0px;
 				border-radius: 0px 0px 0px 10px;
-				background-color: #042836cc;
+				background-color: #042836e8;
 				color: white;
 				overflow: hidden;
-				width: 100px;
-				height: 32px;
+				width: 180px;
+				height: 40px;
 				transition: width 250ms ease-in-out, height 250ms ease-in-out;
 			}
 			#buttons {
 				position: absolute;
-				right: 10;
+				right: 0;
+				display: flex;
+				justify-content: space-evenly;
+				width: 180px;
 			}
 			#controls {
 				display: flex;
@@ -58,7 +62,6 @@
 			}
 			.control-row label {
 				padding-right: 4px;
-				font-family: system-ui;
 			}
 
 			#color-controls {
@@ -68,31 +71,60 @@
 			#color-controls input {
 				margin-right: 4px;
 			}
+			#checkbox-controls {
+				padding-bottom: 20px;
+			}
 
 			i {
 				font-family: FontAwesome;
 				opacity: 0.4;
 				transition: opacity 200ms;
 				font-size: 32px;
+				display: block;
 			}
 			i:hover {
 				opacity: 1;
+				cursor: pointer;
+			}
+
+			.hotkey {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.hotkey p {
+				font-size: 10px;
+				margin: 0;
+				margin-top: 2px;
+				opacity: 0.4;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="menu">
 			<div id="buttons">
-				<i
-					class="fas fa-trash"
-					style="margin-right: 8px"
-					onclick="resetDrawing()"
-				></i>
-				<i class="fas fa-cog" onclick="toggleMenu()"></i>
+				<div class="hotkey">
+					<i class="fas fa-trash" onclick="resetDrawing()"></i>
+					<p>X</p>
+				</div>
+				<div class="hotkey">
+					<i class="fas fa-camera" onclick="save()"></i>
+					<p>S</p>
+				</div>
+				<div class="hotkey">
+					<i class="fas fa-unlock" id="lock-icon" onclick="toggleLock()"></i>
+					<p>L</p>
+				</div>
+				<div class="hotkey">
+					<i class="fas fa-cog" onclick="toggleMenu()"></i>
+					<p>H</p>
+				</div>
 			</div>
 			<!-- Populated in controls.js -->
 			<div id="controls">
 				<div id="color-controls"></div>
+				<div id="checkbox-controls"></div>
 			</div>
 		</div>
 	</body>
