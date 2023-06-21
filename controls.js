@@ -52,8 +52,9 @@ function appendSlider(label, min, max, value) {
 function createSliders() {
 	numRowsSlider = appendSlider("Rows", 1, 100, 50);
 	strokeWeightSlider = appendSlider("Thickness", 1, 6, 4);
-	distortionSlider = appendSlider("Amplitude", 5, 100, 50);
 	numSegmentsSlider = appendSlider("Detail", 2, 50, 20);
+	distortionSlider = appendSlider("Amplitude", 5, 100, 50);
+	cursorSizeSlider = appendSlider("Cursor", 50, 200, 50);
 }
 
 function createColorPickers() {

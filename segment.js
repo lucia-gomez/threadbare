@@ -59,9 +59,10 @@ class Segment {
 	}
 
 	isTouching(mouseX, mouseY) {
+		const cursorSize = cursorSizeSlider.value() / 100;
 		return (
 			dist(mouseX, mouseY, this.x, this.y) <=
-			(WIDTH * 0.5) / numSegmentsSlider.value()
+			(WIDTH * cursorSize) / numSegmentsSlider.value()
 		);
 	}
 }
