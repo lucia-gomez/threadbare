@@ -11,13 +11,12 @@ let geometryCheckbox;
 
 let resetButton;
 let menuOpen = false;
-let textColor = "#ffffff";
 
 function toggleMenu() {
 	const menu = document.getElementById("menu");
 	if (!menuOpen) {
 		menu.style.width = "250px";
-		menu.style.height = "300px";
+		menu.style.height = "310px";
 	} else {
 		menu.style.width = "180px";
 		menu.style.height = "40px";
@@ -71,19 +70,21 @@ function createColorPickers() {
 	const menu = document.getElementById("menu");
 	const controlMenu = document.getElementById("color-controls");
 
-	colorPickerStart = createColorPicker("#2e8cbf");
+	colorPickerStart = createColorPicker("#902EBD");
 	controlMenu.appendChild(colorPickerStart.elt);
+	colorPickerStart.elt.oninput = (e) => {
+		document.documentElement.style.setProperty("--color1", e.target.value);
+	};
 
-	colorPickerEnd = createColorPicker("#119c5b");
+	colorPickerEnd = createColorPicker("#BA7E17");
 	controlMenu.appendChild(colorPickerEnd.elt);
 
-	colorPickerBg = createColorPicker("#042836");
+	colorPickerBg = createColorPicker("#133949");
 	controlMenu.appendChild(colorPickerBg.elt);
 	colorPickerBg.elt.oninput = (e) => {
-		menu.style.backgroundColor = e.target.value + "e8";
 		const newTextColor = getTextColor(e.target.value);
-		menu.style.color = newTextColor;
-		textColor = newTextColor;
+		document.documentElement.style.setProperty("--text", newTextColor);
+		document.documentElement.style.setProperty("--bg", e.target.value);
 	};
 }
 
@@ -96,7 +97,7 @@ function getTextColor(bgColor) {
 	var b = (rgb >> 0) & 0xff; // extract blue
 
 	var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
-	return luma > 170 ? "#000000" : "#ffffff";
+	return luma > 170 ? "#00000099" : "#ffffff99";
 }
 
 function createCheckboxes() {

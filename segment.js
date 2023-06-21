@@ -41,7 +41,7 @@ class Segment {
 
 	drawGeometry() {
 		strokeWeight(1);
-		stroke(textColor + "99");
+		stroke(document.documentElement.style.getPropertyValue("--text") + "99");
 		line(this.prev.x, this.prev.y, this.x, this.y);
 		if (this.col < numSegmentsSlider.value()) {
 			circle(this.x, this.y, 5);

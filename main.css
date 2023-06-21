@@ -1,0 +1,113 @@
+:root {
+	--bg: #133949;
+	--color1: #902ebd;
+	--text: #ffffff99;
+}
+body {
+	margin: 0px;
+	font-family: system-ui;
+}
+html {
+	overflow: none;
+}
+
+#menu {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 10px 0px;
+	border-radius: 0px 0px 0px 10px;
+	background-color: color-mix(in srgb, var(--bg) 90%, transparent);
+	color: var(--text);
+	overflow: hidden;
+	width: 180px;
+	height: 40px;
+	transition: width 250ms ease-in-out, height 250ms ease-in-out;
+}
+#buttons {
+	position: absolute;
+	right: 0;
+	display: flex;
+	justify-content: space-evenly;
+	width: 180px;
+}
+#controls {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-top: 50px;
+	padding: 0px 20px;
+}
+.control-row {
+	display: flex;
+	align-items: center;
+	padding-bottom: 4px;
+}
+.control-row label {
+	padding-right: 4px;
+}
+
+#color-controls {
+	display: flex;
+	padding-bottom: 20px;
+}
+#color-controls input {
+	margin-right: 4px;
+}
+#checkbox-controls {
+	padding-bottom: 20px;
+}
+
+input[type="range"] {
+	-webkit-appearance: none;
+	background-color: var(--bg);
+	border: var(--text) 1px solid;
+	width: auto;
+	height: 10px;
+	border-radius: 20px;
+}
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	background-color: var(--color1);
+	width: 15px;
+	height: 15px;
+	border-radius: 20px;
+}
+input[type="checkbox"] {
+	accent-color: var(--color1);
+}
+
+i {
+	font-family: FontAwesome;
+	opacity: 0.4;
+	transition: opacity 200ms;
+	font-size: 32px;
+	display: block;
+}
+i:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+
+.hotkey {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.hotkey p {
+	font-size: 10px;
+	margin: 0;
+	margin-top: 2px;
+	opacity: 0.6;
+	@media screen and (max-width: 876px) {
+		display: none;
+	}
+}
+
+#dragText {
+	opacity: 0.4;
+	padding: 0px 10px;
+	@media screen and (max-width: 876px) {
+		display: none;
+	}
+}
