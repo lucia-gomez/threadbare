@@ -25,6 +25,14 @@ function resetDrawing() {
 }
 
 function setup() {
+	document.addEventListener(
+		"touchmove",
+		function (e) {
+			e.preventDefault();
+		},
+		{ passive: false }
+	);
+
 	HEIGHT = document.body.clientHeight;
 	WIDTH = document.body.clientWidth;
 
