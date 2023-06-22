@@ -24,6 +24,12 @@ html {
 	height: 40px;
 	transition: width 250ms ease-in-out, height 250ms ease-in-out;
 }
+@media screen and (max-width: 876px) {
+	#menu {
+		height: 32px;
+		max-height: 290px;
+	}
+}
 #buttons {
 	position: absolute;
 	right: 0;
@@ -35,7 +41,7 @@ html {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
-	margin-top: 50px;
+	margin-top: 60px;
 	padding: 0px 20px;
 }
 .control-row {
@@ -52,10 +58,10 @@ html {
 	padding-bottom: 20px;
 }
 #color-controls input {
-	margin-right: 4px;
+	margin-left: 4px;
 }
 #checkbox-controls {
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 }
 
 input[type="range"] {
@@ -69,17 +75,29 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	background-color: var(--color1);
-	width: 15px;
-	height: 15px;
+	width: 20px;
+	height: 20px;
 	border-radius: 20px;
 }
 input[type="checkbox"] {
 	accent-color: var(--color1);
+	transform: scale(1.5);
+}
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+	width: 32px;
+	height: 32px;
+	border-radius: 4px;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+	border-radius: 2px;
 }
 
 i {
 	font-family: FontAwesome;
-	opacity: 0.4;
+	opacity: 0.7;
 	transition: opacity 200ms;
 	font-size: 32px;
 	display: block;
@@ -99,7 +117,9 @@ i:hover {
 	margin: 0;
 	margin-top: 2px;
 	opacity: 0.6;
-	@media screen and (max-width: 876px) {
+}
+@media screen and (max-width: 876px) {
+	.hotkey p {
 		display: none;
 	}
 }
@@ -107,7 +127,10 @@ i:hover {
 #dragText {
 	opacity: 0.4;
 	padding: 0px 10px;
-	@media screen and (max-width: 876px) {
+	text-align: right;
+}
+@media screen and (max-width: 876px) {
+	#dragText {
 		display: none;
 	}
 }

@@ -18,8 +18,8 @@ function toggleMenu() {
 		menu.style.width = "250px";
 		menu.style.height = "310px";
 	} else {
-		menu.style.width = "180px";
-		menu.style.height = "40px";
+		menu.style.width = "";
+		menu.style.height = "";
 	}
 	menuOpen = !menuOpen;
 }
@@ -67,7 +67,6 @@ function createSliders() {
 }
 
 function createColorPickers() {
-	const menu = document.getElementById("menu");
 	const controlMenu = document.getElementById("color-controls");
 
 	colorPickerStart = createColorPicker("#902EBD");
