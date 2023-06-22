@@ -25,14 +25,6 @@ function resetDrawing() {
 }
 
 function setup() {
-	document.addEventListener(
-		"touchmove",
-		function (e) {
-			e.preventDefault();
-		},
-		{ passive: false }
-	);
-
 	HEIGHT = document.body.clientHeight;
 	WIDTH = document.body.clientWidth;
 
@@ -115,12 +107,19 @@ function updateSegments() {
 	}
 }
 
+function isTouchScreen() {
+	return (
+		"ontouchstart" in window ||
+		navigator.maxTouchPoints > 0 ||
+		navigator.msMaxTouchPoints > 0
+	);
+}
 function mousePressed() {
-	isDrawing = false;
+	if (!isTouchScreen()) isDrawing = false;
 }
 
 function mouseReleased() {
-	isDrawing = true;
+	if (!isTouchScreen()) isDrawing = true;
 }
 
 function keyTyped() {

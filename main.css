@@ -10,6 +10,9 @@ body {
 html {
 	overflow: none;
 }
+canvas {
+	touch-action: none;
+}
 
 #menu {
 	position: absolute;
