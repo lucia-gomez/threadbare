@@ -22,15 +22,21 @@
 			src="https://kit.fontawesome.com/9dd13a1052.js"
 			crossorigin="anonymous"
 		></script>
-
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"
 			integrity="sha512-3RlxD1bW34eFKPwj9gUXEWtdSMC59QqIqHnD8O/NoTwSJhgxRizdcFVQhUMFyTp5RwLTDL0Lbcqtl8b7bFAzog=="
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+			integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
 		<script src="segment.js"></script>
 		<script src="controls.js"></script>
+		<script src="state.js"></script>
 		<script src="sketch.js"></script>
 		<link rel="stylesheet" href="main.css" />
 		<link
@@ -56,6 +62,10 @@
 	<body>
 		<div id="menu">
 			<div id="buttons">
+				<div class="hotkey">
+					<i class="fas fa-undo" onclick="undo()"></i>
+					<p>Z</p>
+				</div>
 				<div class="hotkey">
 					<i class="fas fa-trash" onclick="resetDrawing()"></i>
 					<p>X</p>

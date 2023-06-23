@@ -28,11 +28,15 @@ function setup() {
 	HEIGHT = document.body.clientHeight;
 	WIDTH = document.body.clientWidth;
 
-	createCanvas(WIDTH, HEIGHT);
+	const canvas = createCanvas(WIDTH, HEIGHT);
 	createControls();
 	strokeWeight(strokeWeightSlider.value());
 	noFill();
 	resetDrawing();
+
+	canvas.mousePressed(canvasMousePressed);
+	canvas.mouseReleased(canvasMouseReleased);
+	canvas.touchStarted(saveTouch);
 
 	// can draw under the menu nub, but not the expanded menu
 	const menuElement = select("#menu");
@@ -52,10 +56,13 @@ function draw() {
 	updateRows();
 	updateSegments();
 
+	let newHasDrawn = false;
+	let prevRows = JSON.stringify(rows);
 	rows.forEach((row) => {
 		row.slice(1).forEach((segment) => {
 			if (isDrawing && !isLocked && segment.isTouching(mouseX, mouseY)) {
 				let yDiff = prevMouseY - mouseY;
+				newHasDrawn = yDiff !== 0;
 				segment.move(-1 * yDiff * distortion);
 			}
 			segment.draw();
@@ -69,6 +76,10 @@ function draw() {
 	}
 
 	prevMouseY = mouseY;
+	if (!isTouchScreen() && !hasDrawn && newHasDrawn) {
+		saveState(prevRows);
+	}
+	hasDrawn = newHasDrawn;
 }
 
 function updateRows() {
@@ -114,23 +125,11 @@ function isTouchScreen() {
 		navigator.msMaxTouchPoints > 0
 	);
 }
-function mousePressed() {
+
+function canvasMousePressed() {
 	if (!isTouchScreen()) isDrawing = false;
 }
 
-function mouseReleased() {
+function canvasMouseReleased() {
 	if (!isTouchScreen()) isDrawing = true;
-}
-
-function keyTyped() {
-	if (key === "s" || key === "S") {
-		save();
-	} else if (key === "x" || key === "X") {
-		resetDrawing();
-	} else if (key === "h" || key === "H") {
-		toggleMenu();
-	} else if (key === "l" || key === "L") {
-		toggleLock();
-	}
-	return false;
 }

@@ -12,6 +12,21 @@ let geometryCheckbox;
 let resetButton;
 let menuOpen = false;
 
+function keyTyped() {
+	if (key === "s" || key === "S") {
+		save();
+	} else if (key === "x" || key === "X") {
+		resetDrawing();
+	} else if (key === "h" || key === "H") {
+		toggleMenu();
+	} else if (key === "l" || key === "L") {
+		toggleLock();
+	} else if (key === "z" || key === "Z") {
+		undo();
+	}
+	return false;
+}
+
 function toggleMenu() {
 	const menu = document.getElementById("menu");
 	if (!menuOpen) {

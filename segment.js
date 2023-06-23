@@ -10,6 +10,15 @@ class Segment {
 		this.offsetY = 0;
 	}
 
+	static fromJSON({ col, offsetY, originalY, row, x, y }, prev) {
+		const s = new Segment(row, col, prev);
+		s.x = x;
+		s.y = y;
+		s.offsetY = offsetY;
+		s.originalY = originalY;
+		return s;
+	}
+
 	calculateRow() {
 		return (HEIGHT / numRowsSlider.value()) * (0.5 + this.row);
 	}
