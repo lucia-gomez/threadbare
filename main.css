@@ -67,6 +67,9 @@ canvas {
 	padding-bottom: 10px;
 }
 
+input {
+	cursor: pointer;
+}
 input[type="range"] {
 	-webkit-appearance: none;
 	background-color: var(--bg);
